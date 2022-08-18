@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hutu.lsz.ssm.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.hutu.lsz.ssm.entity.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="passwd" jdbcType="VARCHAR" property="passwd" />
+    <result column="mobile_phone" jdbcType="BIGINT" property="mobilePhone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="msg_hash" jdbcType="VARCHAR" property="msgHash" />
+    <result column="tx_hash" jdbcType="VARCHAR" property="txHash" />
+    <result column="tx_time" jdbcType="VARCHAR" property="txTime" />
+    <result column="tx_height" jdbcType="BIGINT" property="txHeight" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hutu.lsz.ssm.entity.User">
+    insert into user_info (id, user_name, passwd, 
+      mobile_phone, email, address, 
+      msg_hash, tx_hash, tx_time, 
+      tx_height, create_time, update_time, 
+      version, del_flag)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{msgHash,jdbcType=VARCHAR}, #{txHash,jdbcType=VARCHAR}, #{txTime,jdbcType=VARCHAR}, 
+      #{txHeight,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=BIGINT}, #{delFlag,jdbcType=CHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hutu.lsz.ssm.entity.User">
+    update user_info
+    set user_name = #{userName,jdbcType=VARCHAR},
+      passwd = #{passwd,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=BIGINT},
+      email = #{email,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      msg_hash = #{msgHash,jdbcType=VARCHAR},
+      tx_hash = #{txHash,jdbcType=VARCHAR},
+      tx_time = #{txTime,jdbcType=VARCHAR},
+      tx_height = #{txHeight,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, user_name, passwd, mobile_phone, email, address, msg_hash, tx_hash, tx_time, 
+    tx_height, create_time, update_time, version, del_flag
+    from user_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_name, passwd, mobile_phone, email, address, msg_hash, tx_hash, tx_time, 
+    tx_height, create_time, update_time, version, del_flag
+    from user_info
+  </select>
+  <resultMap id="BaseResultMap" type="com.hutu.lsz.ssm.entity.User">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="dep_id" jdbcType="VARCHAR" property="depId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="weight" jdbcType="REAL" property="weight" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="salary" jdbcType="DECIMAL" property="salary" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hutu.lsz.ssm.entity.User">
+    insert into user_info (id, dep_id, name, 
+      weight, phone_number, email, 
+      birthday, salary, photo, 
+      user_name, password, status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{depId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=REAL}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{salary,jdbcType=DECIMAL}, #{photo,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hutu.lsz.ssm.entity.User">
+    update user_info
+    set dep_id = #{depId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=REAL},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      salary = #{salary,jdbcType=DECIMAL},
+      photo = #{photo,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, dep_id, name, weight, phone_number, email, birthday, salary, photo, user_name, 
+    password, status
+    from user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, dep_id, name, weight, phone_number, email, birthday, salary, photo, user_name, 
+    password, status
+    from user_info
+  </select>
+</mapper>

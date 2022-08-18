@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hutu.lsz.ssm.mapper.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.hutu.lsz.ssm.entity.Product">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="number" jdbcType="VARCHAR" property="number"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="departure_time" jdbcType="TIMESTAMP" property="departureTime"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="photo" jdbcType="VARCHAR" property="photo"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.hutu.lsz.ssm.entity.Product">
+        insert into product (id, number, name,
+                             city_name, departure_time, price,
+                             photo, description, status)
+        values (#{id,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+                #{cityName,jdbcType=VARCHAR}, #{departureTime,jdbcType=TIMESTAMP}, #{price,jdbcType=DECIMAL},
+                #{photo,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+    </insert>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id,
+               number,
+               name,
+               city_name,
+               departure_time,
+               price,
+               photo,
+               description,
+               status
+        from product
+    </select>
+    <resultMap id="BaseResultMap" type="com.hutu.lsz.ssm.entity.Product">
+        <id column="product_id" jdbcType="INTEGER" property="productId"/>
+        <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+        <result column="product_description" jdbcType="VARCHAR" property="productDescription"/>
+        <result column="commodity_price" jdbcType="DOUBLE" property="commodityPrice"/>
+        <result column="sellers_id" jdbcType="INTEGER" property="sellersId"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="state" jdbcType="BIT" property="state"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from product
+        where product_id = #{productId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.hutu.lsz.ssm.entity.Product">
+        insert into product (product_id, product_name, product_description,
+                             commodity_price, sellers_id, stock,
+                             state)
+        values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productDescription,jdbcType=VARCHAR},
+                #{commodityPrice,jdbcType=DOUBLE}, #{sellersId,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER},
+                #{state,jdbcType=BIT})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.hutu.lsz.ssm.entity.Product">
+        update product
+        set product_name        = #{productName,jdbcType=VARCHAR},
+            product_description = #{productDescription,jdbcType=VARCHAR},
+            commodity_price     = #{commodityPrice,jdbcType=DOUBLE},
+            sellers_id          = #{sellersId,jdbcType=INTEGER},
+            stock               = #{stock,jdbcType=INTEGER},
+            state               = #{state,jdbcType=BIT}
+        where product_id = #{productId,jdbcType=INTEGER}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select product_id,
+               product_name,
+               product_description,
+               commodity_price,
+               sellers_id,
+               stock,
+               state
+        from product
+        where product_id = #{productId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select product_id,
+               product_name,
+               product_description,
+               commodity_price,
+               sellers_id,
+               stock,
+               state
+        from product
+    </select>
+
+    <select id="findByQuery" parameterType="queryVo" resultMap="BaseResultMap">
+        select id, number, name, city_name, departure_time, price, photo, description, status
+        from product
+        <where>
+            <if test="product != null and product.name != null and product.name != ''">
+                and name LIKE '%${product.name}%'
+            </if>
+            <if test="minprice != null">
+                and price >= ${minprice}
+            </if>
+            <if test="maxprice != null">
+                and price &lt; ${maxprice}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteMutli">
+        delete from product
+        <where>
+            <!-- [foreach标签]：表示一个foreach循环 -->
+            <!-- [collection]：集合参数的名称，直接传入集合则名称是list，数组是array -->
+            <!-- [item]：每次遍历出来的对象 -->
+            <!-- [open]：开始遍历时拼接的串 -->
+            <!-- [close]：结束遍历时拼接的串 -->
+            <!-- [separator]：遍历出的每个对象之间需要拼接的字符 -->
+            <!-- 结果是id IN (1,10,16) -->
+            <foreach collection="array" item="id" open="AND id IN (" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+</mapper>

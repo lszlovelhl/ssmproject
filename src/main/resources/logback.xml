@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--现在主流版本的Spring不支持log4j，所以使用slf4j+logback实现日志模块-->
+<configuration>
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+        <!-- 格式化输出，%d表示日期，%thread表示线程名,%-5level级别从左到右显示5个字符宽度，%msg表示日志消息，%n表示换行符 -->
+        <pattern>
+            %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50}-%msg%n
+        </pattern>
+        <charset>utf-8</charset>
+    </encoder>
+    </appender>
+    <!-- mybatis log configor -->
+<!--    <logger name="com.hutu.lsz.ssm.mapper.UserMapper" level="TRACE" />-->
+    <!-- 日志输出级别 五档：error warn info debug trace -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
